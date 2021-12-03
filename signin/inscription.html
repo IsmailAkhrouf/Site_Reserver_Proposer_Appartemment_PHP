@@ -1,0 +1,227 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<?php
+	session_start();
+	if(isset($_GET["Submit"]){
+		if(isset($_GET["nom-complet"]) && isset($_GET["email"]) && isset($_GET["region"]) && isset($_GET["telephone"]) && isset($_GET["mdp"]) && isset($_GET["conf-mdp"]) ){
+			if( $_GET["mdp"] == $_GET["conf-mdp"]){
+				$pdo=new PDO('mysql:host=localhost;dbname=locationline','root','');
+				$stmt1 = $pdo->prepare("select nom-complet from client where email=:email");
+				$stmt1->execute(array('email'=>$_GET["email"]));
+				$nb=$stmt1->rowCount();
+				if($nb==0){
+					$stmt = $pdo->prepare("INSERT INTO inscription values(:nom-c,:email,:tel,:mdp)");
+					$stmt->execute(array(':nom-c'=>$_GET["nom-complet"],'email'=>$_GET["email"],':tel'=>,':mdp'=>$_GET["mdp"]));
+					$to = $_GET["email"];
+					$subject = "Confirmation EMAIL";
+					$code = "1234";
+					$headers = "From: zakariae1999anna@outlook.com" . "\r\n" .
+					"CC: somebodyelse@example.com";
+					mail($to,$subject,$code,$headers);
+					header("Location: Confirmation.php");
+				}
+				else{
+					$str;
+				}
+			}
+			else{
+				$str;
+			}
+		}else{
+			$str;
+		}
+	}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <title>Inscription</title>
+	<style>
+	body{background-color:black;}
+	/* sign in FORM */
+#logreg-forms{
+    width:312px;
+    margin:10vh auto;
+    background-color:#f3f3f3;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+#logreg-forms form {
+    width: 100%;
+    max-width: 410px;
+    padding: 15px;
+    margin: auto;
+}
+#logreg-forms .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+#logreg-forms .form-control:focus { z-index: 2; }
+#logreg-forms .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+#logreg-forms .form-signin input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#logreg-forms .social-login{
+    width:390px;
+    margin:0 auto;
+    margin-bottom: 14px;
+}
+#logreg-forms .social-btn{
+    font-weight: 100;
+    color:white;
+    width:190px;
+    font-size: 0.9rem;
+}
+
+#logreg-forms a{
+    display: block;
+    padding-top:10px;
+    color:lightseagreen;
+}
+
+#logreg-form .lines{
+    width:200px;
+    border:1px solid red;
+}
+
+
+#logreg-forms button[type="submit"]{ margin-top:10px; }
+
+#logreg-forms .facebook-btn{  background-color:#3C589C; }
+
+#logreg-forms .google-btn{ background-color: #DF4B3B; }
+
+#logreg-forms .form-reset, #logreg-forms .form-signup{ display: none; }
+
+#logreg-forms .form-signup .social-btn{ width:210px; }
+
+#logreg-forms .form-signup input { margin-bottom: 2px;}
+
+.form-signup .social-login{
+    width:210px !important;
+    margin: 0 auto;
+}
+
+/* Mobile */
+
+@media screen and (max-width:500px){
+    #logreg-forms{
+        width:300px;
+    }
+    
+    #logreg-forms  .social-login{
+        width:200px;
+        margin:0 auto;
+        margin-bottom: 10px;
+    }
+    #logreg-forms  .social-btn{
+        font-size: 1.3rem;
+        font-weight: 100;
+        color:white;
+        width:200px;
+        height: 56px;
+        
+    }
+    #logreg-forms .social-btn:nth-child(1){
+        margin-bottom: 5px;
+    }
+    #logreg-forms .social-btn span{
+        display: none;
+    }
+    #logreg-forms  .facebook-btn:after{
+        content:'Facebook';
+    }
+  
+    #logreg-forms  .google-btn:after{
+        content:'Google+';
+    }
+    
+}
+	</style>
+</head>
+<body>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+<div class="container">
+
+
+
+<div class="card bg-light">
+<article class="card-body mx-auto" style="max-width: 400px;">
+	 <form class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Inscription</h1>
+            </form>
+	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
+	<div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+        <input name="" class="form-control" placeholder="NOM-COMPLET" type="text">
+    </div> <!-- form-group// -->
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+		 </div>
+        <input name="" class="form-control" placeholder="ADDRESS-EMAIL" type="email">
+    </div> <!-- form-group// -->
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+		<select class="custom-select" style="max-width: 120px;">
+		    <option selected="">+971</option>
+		    <option value="1">+972</option>
+		    <option value="2">+198</option>
+		    <option value="3">+701</option>
+			<option value="3">+212</option>
+
+		</select>
+    	<input name="" class="form-control" placeholder="TELEPHONE" type="text">
+    </div> <!-- form-group// -->
+    
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+        <input class="form-control" placeholder="ENTRER:MOT-DE-PASSE" type="password">
+    </div> <!-- form-group// -->
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+        <input class="form-control" placeholder="CONFERMER:MOT-DE-PASSE" type="password">
+    </div> <!-- form-group// -->                                      
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" name="Submit"> CREER-COMPTE </button>
+    </div> <!-- form-group// -->      
+    <p class="text-center">AVEZ-VOUS UN COMPTE? <a href="">CONNECTER</a> </p>                                                                 
+</form>
+</article>
+</div> <!-- card.// -->
+
+</div> 
+<!--container end.//-->
+
+
+</article>
+</body>
+</html>

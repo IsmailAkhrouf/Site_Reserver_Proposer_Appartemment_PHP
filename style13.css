@@ -1,0 +1,28 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+.bg{background-image:url("nani.png");
+height: 100%; 
+height:auto;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
+}
+
+form{
+	border:3px solid #f1f1f1;
+	background-color:white;
+}
+button{
+	background-color:red;
+	color:white;
+	border:none;
+	cursor:pointer;
+}
+#Proposer.tab-pane fade{
+	margin-bottom:200px;
+}

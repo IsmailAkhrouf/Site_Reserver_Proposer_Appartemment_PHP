@@ -1,0 +1,175 @@
+<?php  
+    if(!isset($_SESSION)) {
+	  session_start();  
+	if(empty($_SESSION['Nom'])) {
+		 $sq='<ul class="nav navbar-nav navbar-right">
+			  <li><a href="signin/inscription.php"><span class="glyphicon glyphicon-user"></span>Inscription</a></li>
+			  <li><a href="signin/connection.html"><span class="glyphicon glyphicon-log-in"></span> Connection</a></li>
+			  </ul>';
+	}
+	else{
+	     $sq='<ul class="nav navbar-nav navbar-right">
+			  <li><span class="glyphicon glyphicon-user"></span>'.$_SESSION["Nom"]'</li>
+			  </ul>';
+    }
+ }
+?>
+<!doctype>
+<html>
+<head>
+<title>Le Meilleur Site Reservation Des Appartements au Maroc</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="style12.css"/>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+<ul class="nav navbar-nav">
+<li><a href="indix.html">LocationLine</a></li>
+<li><a href="indix.html">Home</a></li>
+<li><a href="#">Aide</a></li>
+</ul>
+
+<?php echo $sq; ?>
+
+</div>
+</nav>
+<div class="container-fluid">
+<ul class="nav nav-tabs">
+<li class="active"><a href="#Louer" data-toggle="tab" onclick="myFunction()" >Louer</a></li>
+<li><a href="#Proposer" data-toggle="tab">Proposer</a></li>
+</ul>
+<div class="tabs-content">
+<div id="Louer" class="tab-pane fade in active">
+<form action="Reserver.php" method="post">
+<div class="mot1"><h2>Réservez des hébergements</h2></div>
+<div class="container">
+   
+<div class="form-row">
+    <div class="form-group col-lg-3">
+      <label for="localitation"><h4><b>Partout</b></h4></label>
+      <input type="text" class="form-control" id="localitation" name="localitation" placeholder="Dans quelle ville?Quartier?">
+    </div>
+
+
+    <div class="form-group col-lg-3">
+      
+            <h4><b>Arrivee</b></h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="datetime" id="datepicker" name="arrivee" width="270" />
+                </div>
+            </div>
+        
+       <script>
+           
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+       </script> 
+    </div>
+	<div class="form-group col-lg-3">
+      
+            <h4><b>Depart</b></h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="datepicker1" type="datetime" name="depart" width="270" />
+                </div>
+            </div>
+        
+       <script>
+           
+        $('#datepicker1').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+       </script> 
+    </div>
+	<div class="form-group col-lg-3">
+	<label for="vacance"><h4><b>Vacanciers</b></h4></label>
+    <input type="text"class="form-control" placeholder="Quelle est le nombre Des Vacanciers?" 
+	name="vacance" id="vacance" required>
+	<div class="container">
+	<div class="form-row">
+	<div class="form-group col-md-4">
+	<h5><b>Adultes</b></h5>
+     <div class="qty mt-5">
+                        <span class="minus bg-dark">-</span>
+                        <input type="number1" class="count" name="qty" value="1">
+                        <span class="plus bg-dark">+</span>
+                    </div>
+	</div>
+	<div class="form-group col-md-4">
+	<h5><b>Enfants</b></h5>
+     <div class="qty mt-5">
+                        <span class="minus bg-dark">-</span>
+                        <input type="number" class="count" name="qty" value="1">
+                        <span class="plus bg-dark">+</span>
+                    </div>
+	</div>
+	</div>
+	</div>
+	</div>
+ </div>
+ <button type="submit" class="btn" name="btn">Rechercher</button>
+</div>
+</form>
+</div>
+<div id="Proposer" class="tab-pane fade f2">
+<form action="Proposer.php" method="post" enctype="multipart/form-data">
+<div class="mot2"><h2>Proposer des hébergements</h2></div></br>
+<div class="container">
+<div class="form-row">
+    <div class="form-group col-lg-2">
+      <label for="Ville"><h4><b>Ville</b></h4></label>
+      <input type="text" class="form-control" id="Ville" name="Ville" placeholder="Dans quelle ville?">
+    </div>
+	<div class="form-group col-lg-2">
+      <label for="address"><h4><b>Address</b></h4></label>
+      <input type="text" class="form-control" id="address" name="address"placeholder="Dans quelle address?">
+    </div>
+	<div class="form-group col-lg-2">
+	<label for="nbch"><h4><b>NombreChambre</b></h4></label>
+    <input type="number"class="form-control" placeholder="Quelle est le nombre de chambre?" 
+	name="nbch" id="nbch" required>
+	</div>  
+	<div class="form-group col-lg-2">
+	<label for="nbet"><h4><b>NombreEtage</b></h4></label>
+    <input type="number" class="form-control" placeholder="Quelle est le nombre des etages?" name="nbet" id="nbet" required>
+	</div><div class="form-group col-lg-2">
+	<label for="myfile"><h4><b>Image</b></h4></label>
+    <input type="file" class="form-control"placeholder="Donnez moi un image d'appartement?" name="myfile" id="myfile"required>
+	</div>
+    <div class="form-group col-lg-2">
+	<label for="prixnuit"><h4><b>PrixNuit</b></h4></label>
+    <input type="number" class="form-control"placeholder="Quelle est le prix de nuit?" name="prixnuit" id="prixnuit"required>
+	</div>
+</div>
+<button type="submit" class="btn" name="btn">Envoyer</button>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+ 	$(document).ready(function(){
+		    $('.count').prop('disabled', true);
+   			$(document).on('click','.plus',function(){
+				$('.count').val(parseInt($('.count').val()) + 1 );
+    		});
+        	$(document).on('click','.minus',function(){
+    			$('.count').val(parseInt($('.count').val()) - 1 );
+    				if ($('.count').val() == 0) {
+						$('.count').val(1);
+					}
+    	    	});
+ 		});
+</script>
